@@ -115,7 +115,7 @@ def main_loop(puls_oximetr, light_sensor, sound_sensor, pump_controller, fan_con
         #     fan_controller.turn_off()
 
         if SATURATION < LOW_SATURATION_TRESHOLD:
-          fan_controller.turn_on()
+          fan_controller.turn_on_for(5)
 
 
         print({

@@ -62,7 +62,7 @@ def beer():
   IS_BEER_BEING_DRANK = request.json['isBeerBeingDrank']
   return 200, 'ok'
 
-def main_loop(puls_oximetr, light_sensor, sound_sensor, pump_controller):
+def main_loop(puls_oximetr, light_sensor, sound_sensor, pump_controller, fan_controller):
     while True:
         PULSE = puls_oximetr.get_pulse()
         SATURATION = puls_oximetr.get_saturation()
@@ -75,9 +75,9 @@ def main_loop(puls_oximetr, light_sensor, sound_sensor, pump_controller):
             pump_controller.turn_off()
         
         if  IS_FUN_ON and pump_controller.is_off:
-            pump_controller.turn_on()
+            fan_controller.turn_on()
         if (not IS_FUN_ON) and pump_controller.is_on:
-            pump_controller.turn_off()
+            fan_controller.turn_off()
 
         print({
             'pulse': PULSE,
@@ -95,7 +95,7 @@ def main():
     sound_sensor = gpio_inputs.GPIO_input(SOUND_GPIO)
     pump_controller = gpio_controler.GPIOController(PUMP_GPIO)
     fan_controller = gpio_controler.GPIOController(FAN_GPIO)
-    t = threading.Thread(target=main_loop, args=(puls_oximetr, light_sensor, sound_sensor, pump_controller))
+    t = threading.Thread(target=main_loop, args=(puls_oximetr, light_sensor, sound_sensor, pump_controller, fan_controller))
     t.start()
 
 

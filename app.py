@@ -49,16 +49,19 @@ def stats():
 
 @app.route('/helmet', methods=['POST'])
 def helmet():
+  global IS_HELMET_OPEN
   IS_HELMET_OPEN = request.json['isHelmetOpen']
   return 'ok'
 
 @app.route('/fan', methods=['POST'])
 def fan():
+  global IS_FUN_ON
   IS_FUN_ON = request.json['isFanOn']
   return 'ok'
 
 @app.route('/beer', methods=['POST'])
 def beer():
+  global IS_BEER_BEING_DRANK
   IS_BEER_BEING_DRANK = request.json['isBeerBeingDrank']
   return 'ok'
 

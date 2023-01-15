@@ -2,7 +2,7 @@ from flask import Flask
 from tools.sensors import gpio_inputs
 from tools.sensors.pulse_oximetr import puls_meter
 from tools.controllers import gpio_controler
-import threading
+import threading, time
 
 # constans PARAMS
 LIGHT_GPIO = 27

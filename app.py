@@ -52,9 +52,9 @@ def helmet():
   IS_HELMET_OPEN = request.json['isHelmetOpen']
   return 200, 'ok'
 
-@app.route('/fun', methods=['POST'])
-def helmet():
-  IS_FUN_ON = request.json['isFunOn']
+@app.route('/fan', methods=['POST'])
+def fan():
+  IS_FUN_ON = request.json['isFanOn']
   return 200, 'ok'
 
 @app.route('/beer', methods=['POST'])

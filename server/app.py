@@ -5,9 +5,10 @@ from tools.controllers import gpio_controler
 import threading
 
 # constans PARAMS
-LIGHT_GPIO = 17
-SOUND_GPIO = 21 
-PUMP_GPIO = 21 
+LIGHT_GPIO = 27
+SOUND_GPIO = 22
+PUMP_GPIO = 17 
+FAN_GPIO = 18
 MAIN_PERIOD = 1
 
 # global variables
@@ -64,6 +65,15 @@ def main_loop(puls_oximetr, light_sensor, sound_sensor, pump_controller):
             pump_controller.turn_on()
         if (not IS_BEER_BEING_DRANK) and pump_controller.is_on:
             pump_controller.turn_off()
+
+        print({
+            'pulse': PULSE,
+            'saturation': SATURATION,
+            'isLight': IS_LIGHT,
+            'isNoise': IS_NOISE,
+            'isHelmetOpen': IS_HELMET_OPEN,
+            'isBeerBeingDrank': IS_BEER_BEING_DRANK
+        })
         time.sleep(MAIN_PERIOD)
 
 def main():

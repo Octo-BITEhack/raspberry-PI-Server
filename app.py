@@ -18,6 +18,7 @@ global IS_LIGHT
 global IS_NOISE
 global IS_HELMET_OPEN
 global IS_BEER_BEING_DRANK
+global IS_FUN_ON
 
 PULSE = 100
 SATURATION = 100
@@ -25,6 +26,7 @@ IS_LIGHT = True
 IS_NOISE = False
 IS_HELMET_OPEN = False
 IS_BEER_BEING_DRANK = False
+IS_FUN_ON = False
 
 app = Flask(__name__)
 
@@ -41,12 +43,18 @@ def stats():
     'isLight': IS_LIGHT,
     'isNoise': IS_NOISE,
     'isHelmetOpen': IS_HELMET_OPEN,
-    'isBeerBeingDrank': IS_BEER_BEING_DRANK
+    'isBeerBeingDrank': IS_BEER_BEING_DRANK,
+    'isFunOn': IS_FUN_ON
   }
 
 @app.route('/helmet', methods=['POST'])
 def helmet():
   IS_HELMET_OPEN = request.json['isHelmetOpen']
+  return 200, 'ok'
+
+@app.route('/fun', methods=['POST'])
+def helmet():
+  IS_FUN_ON = request.json['isFunOn']
   return 200, 'ok'
 
 @app.route('/beer', methods=['POST'])
@@ -65,6 +73,11 @@ def main_loop(puls_oximetr, light_sensor, sound_sensor, pump_controller):
             pump_controller.turn_on()
         if (not IS_BEER_BEING_DRANK) and pump_controller.is_on:
             pump_controller.turn_off()
+        
+        if  IS_FUN_ON and pump_controller.is_off:
+            pump_controller.turn_on()
+        if (not IS_FUN_ON) and pump_controller.is_on:
+            pump_controller.turn_off()
 
         print({
             'pulse': PULSE,
@@ -81,6 +94,7 @@ def main():
     light_sensor = gpio_inputs.GPIO_input(LIGHT_GPIO)
     sound_sensor = gpio_inputs.GPIO_input(SOUND_GPIO)
     pump_controller = gpio_controler.GPIOController(PUMP_GPIO)
+    fan_controller = gpio_controler.GPIOController(FAN_GPIO)
     t = threading.Thread(target=main_loop, args=(puls_oximetr, light_sensor, sound_sensor, pump_controller))
     t.start()
 

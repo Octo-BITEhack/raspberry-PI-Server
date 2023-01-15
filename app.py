@@ -37,6 +37,13 @@ def home():
 
 @app.route('/stats', methods=['GET'])
 def stats():
+  global PULSE
+  global SATURATION
+  global IS_LIGHT
+  global IS_NOISE
+  global IS_HELMET_OPEN
+  global IS_BEER_BEING_DRANK
+  global IS_FUN_ON
   return {
     'pulse': PULSE,
     'saturation': SATURATION,
@@ -67,6 +74,14 @@ def beer():
 
 def main_loop(puls_oximetr, light_sensor, sound_sensor, pump_controller, fan_controller):
     while True:
+        global PULSE
+        global SATURATION
+        global IS_LIGHT
+        global IS_NOISE
+        global IS_HELMET_OPEN
+        global IS_BEER_BEING_DRANK
+        global IS_FUN_ON
+
         PULSE = puls_oximetr.get_pulse()
         SATURATION = puls_oximetr.get_saturation()
         IS_LIGHT = light_sensor.isLow()

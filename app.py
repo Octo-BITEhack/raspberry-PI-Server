@@ -84,9 +84,9 @@ def beer():
   global IS_BEER_BEING_DRANK
   IS_BEER_BEING_DRANK = request.json['isBeerBeingDrank']
   if request.json['isBeerBeingDrank']:
-    fan_controller.turn_on()
+    pump_controller.turn_on()
   if not request.json['isBeerBeingDrank']:
-    fan_controller.turn_off()
+    pump_controller.turn_off()
   return str(IS_BEER_BEING_DRANK)
 
 def main_loop(puls_oximetr, light_sensor, sound_sensor, pump_controller, fan_controller):

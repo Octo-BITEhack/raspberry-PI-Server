@@ -1,6 +1,6 @@
 from flask import Flask
 from tools.sensors import gpio_inputs
-from tools.sensors.puls_meter import puls_meter
+from tools.sensors.puls_oximetr import puls_meter
 from tools.controllers import gpio_controler
 import threading
 

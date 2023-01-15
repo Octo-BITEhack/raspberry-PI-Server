@@ -1,11 +1,14 @@
 from flask import Flask
 from tools.sensors import gpio_inputs
 from tools.sensors.puls_meter import puls_meter
+from tools.controllers import gpio_controler
 import threading
 
 # constans PARAMS
 LIGHT_GPIO = 17
 SOUND_GPIO = 21 
+PUMP_GPIO = 21 
+MAIN_PERIOD = 1
 
 # global variables
 global PULSE
@@ -50,20 +53,25 @@ def beer():
   IS_BEER_BEING_DRANK = request.json['isBeerBeingDrank']
   return 200, 'ok'
 
-def main_loop(puls_oximetr, light_sensor, sound_sensor):
+def main_loop(puls_oximetr, light_sensor, sound_sensor, pump_controller):
     while True:
         PULSE = puls_oximetr.get_pulse()
         SATURATION = puls_oximetr.get_saturation()
         IS_LIGHT = light_sensor.isHigh()
         IS_NOISE = sound_sensor.isHigh()
         # IS_HELMET_OPEN = False
-        # IS_BEER_BEING_DRANK = False
+        if  IS_BEER_BEING_DRANK and pump_controller.is_off:
+            pump_controller.turn_on()
+        if (not IS_BEER_BEING_DRANK) and pump_controller.is_on:
+            pump_controller.turn_off()
+        time.sleep(MAIN_PERIOD)
 
 def main():
     puls_oximetr = puls_meter.PulsMeter()
     light_sensor = gpio_inputs.GPIO_input(LIGHT_GPIO)
     sound_sensor = gpio_inputs.GPIO_input(SOUND_GPIO)
-    t = threading.Thread(target=main_loop, args=(puls_oximetr, light_sensor, sound_sensor))
+    pump_controller = gpio_controler.GPIOController(PUMP_GPIO)
+    t = threading.Thread(target=main_loop, args=(puls_oximetr, light_sensor, sound_sensor, pump_controller))
     t.start()
 
 

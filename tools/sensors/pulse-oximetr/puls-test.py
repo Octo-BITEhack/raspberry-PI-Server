@@ -13,8 +13,8 @@ while 1:
     spo2 = int(mx30.red / 100)
     
     if mx30.ir != mx30.buffer_ir :
-        print("Pulse:",hb);
+        print("Pulse:",hb)
     if mx30.red != mx30.buffer_red:
-        print("SPO2:",spo2);
+        print("SPO2:",spo2)
 
     time.sleep(2)

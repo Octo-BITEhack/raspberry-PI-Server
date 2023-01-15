@@ -23,19 +23,19 @@ class PulsMeter:
 
 
     def __read_data(self):
-        mx30.read_sensor()
+        self.mx30.read_sensor()
 
-        mx30.ir, mx30.red
+        self.mx30.ir, self.mx30.red
 
-        if mx30.ir == mx30.buffer_ir or mx30.ir == 0:
+        if self.mx30.ir == self.mx30.buffer_ir or self.mx30.ir == 0:
             hb = None
         else:
-            hb = int(mx30.ir / 100)
+            hb = int(self.mx30.ir / 100)
         
-        if mx30.red == mx30.buffer_red or mx30.red == 0:
+        if self.mx30.red == self.mx30.buffer_red or self.mx30.red == 0:
             spo2 = None
         else:
-            spo2 = int(mx30.red / 100)
+            spo2 = int(self.mx30.red / 100)
         
         return hb, spo2
 

@@ -10,7 +10,7 @@ SOUND_GPIO = 22
 PUMP_GPIO = 17 
 FAN_GPIO = 18
 MAIN_PERIOD = 1
-
+LOW_SATURATION_TRESHOLD = 85
 
 
 
@@ -113,6 +113,9 @@ def main_loop(puls_oximetr, light_sensor, sound_sensor, pump_controller, fan_con
         #     fan_controller.turn_on()
         # if (not IS_FUN_ON) and pump_controller.is_on:
         #     fan_controller.turn_off()
+
+        if SATURATION < LOW_SATURATION_TRESHOLD:
+          fan_controller.turn_on_for(5)
 
         print({
             'pulse': PULSE,

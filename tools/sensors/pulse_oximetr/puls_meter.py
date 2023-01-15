@@ -35,7 +35,7 @@ class PulsMeter:
         if self.mx30.red == self.mx30.buffer_red or self.mx30.red == 0:
             spo2 = None
         else:
-            spo2 = int(self.mx30.red / 100)
+            spo2 = int(self.mx30.red / 200)
         
         return hb, spo2
 

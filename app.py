@@ -49,17 +49,17 @@ def stats():
 
 @app.route('/helmet', methods=['POST'])
 def helmet():
-  IS_HELMET_OPEN = request.json['isHelmetOpen']
+  IS_HELMET_OPEN = request.json()['isHelmetOpen']
   return 'ok'
 
 @app.route('/fan', methods=['POST'])
 def fan():
-  IS_FUN_ON = request.json['isFanOn']
+  IS_FUN_ON = request.json()['isFanOn']
   return 'ok'
 
 @app.route('/beer', methods=['POST'])
 def beer():
-  IS_BEER_BEING_DRANK = request.json['isBeerBeingDrank']
+  IS_BEER_BEING_DRANK = request.json()['isBeerBeingDrank']
   return 'ok'
 
 def main_loop(puls_oximetr, light_sensor, sound_sensor, pump_controller, fan_controller):

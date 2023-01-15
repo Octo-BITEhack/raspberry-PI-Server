@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from tools.sensors import gpio_inputs
 from tools.sensors.pulse_oximetr import puls_meter
 from tools.controllers import gpio_controler

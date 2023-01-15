@@ -58,8 +58,8 @@ def main_loop(puls_oximetr, light_sensor, sound_sensor, pump_controller):
     while True:
         PULSE = puls_oximetr.get_pulse()
         SATURATION = puls_oximetr.get_saturation()
-        IS_LIGHT = light_sensor.isHigh()
-        IS_NOISE = sound_sensor.isHigh()
+        IS_LIGHT = light_sensor.isLow()
+        IS_NOISE = sound_sensor.isLow()
         # IS_HELMET_OPEN = False
         if  IS_BEER_BEING_DRANK and pump_controller.is_off:
             pump_controller.turn_on()

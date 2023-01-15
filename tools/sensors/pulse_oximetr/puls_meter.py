@@ -17,7 +17,7 @@ class PulsMeter:
 
         self.__registry = None
         self.__registry_going: bool = False
-        self.__registry_delta: float = 0.1
+        self.__registry_delta: float = 0.3
         self.__registry_size: int = 30
         self.__registry_thread = None
 
@@ -39,7 +39,7 @@ class PulsMeter:
         
         return hb, spo2
 
-    def __scheduled_read(self, delta=1):
+    def __scheduled_read(self, period=0.1):
         while self.__scheduled_read_running:
             hb, spo2 = self.__read_data()
 
@@ -49,7 +49,7 @@ class PulsMeter:
             if spo2 != None:
                 self.last_spo2 = spo2
             
-            time.sleep(delta)
+            time.sleep(period)
 
     def beginRegister(self, delta_time=0.1, history_size=30):
         self.__registry_delta = delta_time

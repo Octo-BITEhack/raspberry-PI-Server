@@ -85,7 +85,7 @@ def beer():
   IS_BEER_BEING_DRANK = request.json['isBeerBeingDrank']
   if request.json['isBeerBeingDrank']:
     fan_controller.turn_on()
-  else:
+  if not request.json['isBeerBeingDrank']:
     fan_controller.turn_off()
   return str(IS_BEER_BEING_DRANK)
 

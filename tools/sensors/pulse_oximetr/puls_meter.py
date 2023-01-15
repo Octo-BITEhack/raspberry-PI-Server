@@ -1,5 +1,5 @@
 import time
-import tools.sensors.pulse_oximetr.max30100
+from tools.sensors.pulse_oximetr import max30100
 import threading
 
 

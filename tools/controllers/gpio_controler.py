@@ -22,7 +22,7 @@ class GPIOController:
 
     def turn_on_for(self, period):
         self.turn_on()
-        t = threading.Thread(target=self.__turn_off_after, args=(period))
+        t = threading.Thread(target=self.__turn_off_after, args=[period])
         t.start()
 
     def __turn_off_after(self, period):

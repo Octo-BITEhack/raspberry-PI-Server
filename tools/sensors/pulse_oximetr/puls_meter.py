@@ -27,12 +27,12 @@ class PulsMeter:
 
         mx30.ir, mx30.red
 
-        if mx30.ir != mx30.buffer_ir or mx30.ir == 0:
+        if mx30.ir == mx30.buffer_ir or mx30.ir == 0:
             hb = None
         else:
             hb = int(mx30.ir / 100)
         
-        if mx30.red != mx30.buffer_red or mx30.red == 0:
+        if mx30.red == mx30.buffer_red or mx30.red == 0:
             spo2 = None
         else:
             spo2 = int(mx30.red / 100)
